@@ -3,6 +3,19 @@ import Counter from '../Counter';
 
 import styles from './App.module.scss';
 
+type MZCRData = {
+    modified: string;
+    source: string;
+    data: Array<{
+        datum: string;
+        kumulativni_pocet_nakazenych: string;
+        kumulativni_pocet_vylecenych: string;
+        kumulativni_pocet_umrti: string;
+        kumulativni_pocet_testu: string;
+        kumulativni_pocet_ag_testu: string;
+    }>;
+}
+
 const App: React.FC = () => {
     const [count, setCount] = useState(0);
 
@@ -11,11 +24,11 @@ const App: React.FC = () => {
             .then((res) => {
                 return res.json();
             })
-            .then((res) => {
+            .then((res: MZCRData) => {
                 // get newest count
                 const { data } = res;
                 const lastData = data[data.length - 1];
-                setCount(lastData.kumulativni_pocet_umrti);
+                setCount(parseInt(lastData.kumulativni_pocet_umrti, 10));
             });
     })
 
