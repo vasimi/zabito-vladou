@@ -34,9 +34,23 @@ const App: React.FC = () => {
 
     return (
         <div className={styles.app}>
+            <p className={styles.text}>Už</p>
             <Counter
                 count={count}
             />
+            <p className={styles.text}>bylo zabito vládou Andreje Babiše.</p>
+            <footer className={styles.footer}>
+                <p className={styles.footerText}>
+                    Data poskytuje
+                    <a
+                        href="https://onemocneni-aktualne.mzcr.cz/"
+                        className={styles.sourceLink}
+                    >
+                        Ministerstvo zdravotnictví
+                    </a>
+                    .
+                </p>
+            </footer>
         </div>
     );
 }
