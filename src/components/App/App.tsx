@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Counter from '../Counter';
+import cities from '../../assets/cities.json';
 
 import styles from './App.module.scss';
 
@@ -30,7 +31,22 @@ const App: React.FC = () => {
                 const lastData = data[data.length - 1];
                 setCount(parseInt(lastData.kumulativni_pocet_umrti, 10));
             });
-    })
+    });
+
+    const city = useMemo(() => {
+        const pplCounts = Object.keys(cities);
+
+        let i = 0;
+        // @ts-ignore
+        let result = cities[pplCounts[i]];
+        while (parseInt(pplCounts[i], 10) < count) {
+            // @ts-ignore
+            result = cities[pplCounts[i]];
+            i++;
+        }
+
+        return result;
+    }, [count]);
 
     return (
         <div className={styles.app}>
@@ -39,6 +55,7 @@ const App: React.FC = () => {
                 count={count}
             />
             <p className={styles.text}>bylo zabito vládou Andreje Babiše.</p>
+            <p className={styles.cityText}>Tolik obyvatel má <span className={styles.city}>{city}</span>.</p>
             <footer className={styles.footer}>
                 <p className={styles.footerText}>
                     Data poskytuje
